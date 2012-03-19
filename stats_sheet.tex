@@ -1,0 +1,185 @@
+\documentclass[12pt]{letter}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage[landscape,margin=0.5in]{geometry}
+
+\begin{document}
+\begin{multicols}{2}
+\begin{description}
+  \item[Basics]
+    \begin{description}
+    \item[Mean] $\bar{x} = \frac{\sum x_i}{n}$
+    \item[Median - $n$ odd] $\tilde{x} = \left( \frac{n+1}{2} \right)^th$ value
+    \item[Median - $n$ even] Average of $\left( \frac{n}{2} \right)^{th}$ and $\left( \frac{n}{2} + 1\right)^{th}$ values
+    \item[Variance] $s^2 = \sigma^2 = \frac{\sum(x_i - \bar{x})}{n-1}$
+    \end{description}
+
+  \item[Quartiles]
+    \begin{description}
+    \item[Fourths] Upper fourth = median of upper half, etc.  $\tilde{x}$ in both halfves if $n$ odd
+    \item[Fourth Spread] $f_s = f_{upper} - f_{lower}$
+    \item[Outlier if] $x_i > 1.5f_s$ away from closest fourth, extreme if $> 3f_s$  
+    \end{description}
+
+  \item[Probability]
+    \begin{description}
+    \item[Conditional:] A given B $ = P(A|B) = frac{P(A \cap B)}{P(B)}$
+    \item[independence] iff $P(A|B) = P(A)$ and iff $P(A \cap B) = P(A)\cdot P(B)$
+    \end{description}
+
+  \item[Combinatorics]
+    \begin{description}
+    \item[Choose:] ${n \choose r} = \frac{n!}{k!(n-k)!}$
+    \item[Permute:] $P_{k,n} = \frac{n!}{(n-k)!}$
+    \end{description}
+
+  \item[DRV basics]
+    \begin{description}
+    \item[Bernoulli rv:] Any rv whose only possible values are 0 and 1
+    \item[pmf] $p(x) = P(X=x) = P(s \in S: X(s) = x)$
+    \item[cdf] $F(x) = P(X \leq x) = \sum p(y) $ for $y \leq x$
+    \item[Expected Value] $E(x) = \mu_x = \sum x \cdot p(x)$
+    \item[For a function:] $E[h(x)] = \sum h(x) \cdot p(x)$
+    \item[Variance:] $V(X) = \mu_x^2 = \sum (x - \mu)^2 \cdot p(x) = E[(X-\mu)^2]$
+    \end{description}
+
+  \item[Binomial Probability Distribution]
+    Sampling w/o replacement from a finite dichotomous pop.
+    Assumes $n << N$
+      
+
+    \begin{description}
+    \item[Fits if:]
+      \begin{enumerate}
+      \item Some number of trials, $n$, where $n$ is fixed
+      \item Each trial can result in either Success($S$) or Failure($F$)
+      \item Each trial is independent
+      \item $P(S)$ is constant
+      \end{enumerate}
+    \item[binpmf] $b(x; n,p) = {n \choose x} p^x (1 - p)^{n-x}$ if $x \in 0,1,2,\ldots,n$
+    \item[bincdf] $B(x; n,p) = P(X \leq x) = \sum b(y; n,p) for y \in [0,n]$
+    \item[mean] $E(X) = np$
+    \item[variance] $V(X) = np(1-p)s$
+    \end{description}
+
+  \item[Hypergeometric Bin. Distributions]
+    \begin{description}
+    \item[Assumptions:]
+      \begin{enumerate}
+      \item Finite population - $N$
+      \item Each individual either a success or failure, $M$ successes
+      \item Sampled without replacement such that each subset of $n$ is equally likely to be chosen
+      \end{enumerate}
+    \item[pmf:] $P(X = x) = h(x; n,M,N) = \frac{{M \choose x} {N-M \choose n-x} }{ {N \choose n} }$
+    
+      where $\mathrm{max}(0, n-N+M) \leq x \leq \mathrm{max}(n,M)$
+    \item[mean:] $E(X) = n \cdot \frac{M}{N}$
+    \item[variance:] $V(X) = \frac{N-n}{N-1} \cdot n \cdot \frac{M}{N} \cdot \left( 1 - \frac{M}{N}\right)$
+    \end{description}
+
+  \item[Negative Binomial Distribution]
+    \begin{description}
+    \item[Assumptions:]
+      \begin{enumerate}
+      \item Sequence of independent trials
+      \item Each trial can result in success or failure
+      \item The probability of success is constant
+      \item Trials continue until $r$ successes
+      \end{enumerate}
+    \item[pmf:] $nb(x; r, p) = {x + r - 1 \choose r-1} p^r(1-p)^x$
+
+      where $p$ is $P(\mathrm{success})$, $r$ is \# of successes, and $x$ is \# of failures preceeding the $r^\mathit{th}$ success.
+    \item[cdf:]
+    \item[mean:] $E(X) = \frac{r(1-p)}{p}$
+    \item[variance:] $V(X) = \frac{r(1-p)}{p^2}$
+    \end{description}
+    \pagebreak
+  \item[Poisson Distribution]
+    a drv has Poisson distribution with parameter $\mu (\mu > 0)$ if the pmf is
+
+    $p(x; \mu) = \frac{e^{-\mu}\cdot \mu^x}{x!}$ where $x = 0,1,2,3,\ldots$
+
+    $E(X) = V(X) = \mu$
+    
+    Application: events occuring over time. Properties:
+    
+    \begin{enumerate}
+    \item $\exists\;\alpha > 0,\;\Delta t > 0,\; P(\mathrm{one event occurs in}\;\Delta t) = \alpha \cdot \Delta t + o(\Delta t)$
+
+      where $o(\Delta t) << \Delta t$
+
+    \item The probability of more than one event occurring during $\Delta t$ is $o(\Delta t)$, 
+      so $P(\mathrm{no events}) = 1 - \alpha \cdot \Delta t - o(\Delta t)$
+
+    \item The number of events occurring in $\Delta t$ is independent of the number occuring previously
+    \end{enumerate}
+
+    So, $P_k(t) = \frac{e^{-\alpha t}\cdot (\alpha t)^k}{k!}$
+
+  \item[Continuous Distributions] 
+    \begin{description}
+      \item[Uniform] on $[A,B]$ if pdf: $f(x; A,B) = \begin{cases}
+        \frac{1}{B-A} & A \leq x \leq B \\
+        0 & \text{otherwise}
+        \end{cases}$
+      \item[Variance] $\sigma^2_X = V(X) = \int^\infty_{-\infty} (x - \mu)^2 \dot f(x) dx = E[X-\mu^2] = E(X^2) - E(X)^2$
+      \item[Normal if pdf is] $f(x;\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma}e^{\frac{-(x-\mu)^2}{2\sigma^2}}$
+        
+        Standard if $\mu = 0$, $\sigma = 1$, denoted $Z$
+
+        \textbf{cdf} denoted $\Phi(z)$
+      \item[Nonstandard:] Let $Z = \frac{X-\mu}{\sigma}$
+
+        Then $P(a \leq x \leq b) = \Phi(\frac{b-\mu}{\sigma}) - \Phi(\frac{a-\mu}{\sigma})$
+
+      \item[Exponential]
+        $f(x; \lambda) = \begin{cases}
+        \lambda e^{-\lambda x} & x \geq 0 \\
+        0 & \text{otherwise}
+      \end{cases}$
+
+        $\mu = \frac{1}{\lambda}$, $\sigma^2 = \mu^2$
+
+        cdf: $F(x; \lambda) = 1-e^{-\lambda x}$
+
+        If \# of events in a time $t$ has Poisson distributiuon with param $\alpha t$ then time between events has exp. dist. with $\lambda = \alpha$
+    \end{description}
+  \item[$\Gamma$ function]
+    \begin{itemize}
+    \item $\Gamma (\alpha) = \int_0^\infty x^{\alpha - 1}e^{-x}dx$ 
+    \item $\alpha > 1 \rightarrow \Gamma(\alpha) = (\alpha - 1)\dot\Gamma(\alpha - 1)$
+    \item $n \in \mathbb{N} \rightarrow \Gamma(n) = (n - 1)!$
+    \item $\Gamma(\frac{1}{2}) = \sqrt{\pi}$
+    \end{itemize}
+  \item[Gamma distribution]
+    \begin{description}
+    \item[pdf:] $f(x; \alpha, \beta) = \frac{x^{\alpha - 1}e^{-x/\beta}}{\beta^\alpha \Gamma(\alpha)}$ where $\alpha$, $\beta > 0$.
+    \item[Standard pdf:] if $\beta = 1$: $f(x, \alpha) = \frac{x^{\alpha - 1}e^{-x}}{\Gamma(\alpha)}$
+    \item[cdf:] $F(x;\alpha, \beta) = F(\frac{x}{\beta};\alpha)$ where $F$ is the incomplete $\Gamma$ function.
+      
+      $F(y;\alpha) = \int_0^y \frac{y^{a-1}e^{-y}}{\Gamma(\alpha)}dy$, assuming $Y$ has a std. gamma dist
+    \item[measures:] $E(X) = \alpha\beta$, $V(X) = \alpha\beta^2$
+    \end{description}
+
+  \item[$\chi^2$ distribution] $f(x;v)$, $\Gamma$ dist. with $\alpha = v/2$, $\beta=2$
+
+  \item[Joint Distributions]
+    Independent iff $f(x,y) = f_X(x) \dot f_Y(y)$
+
+    Conditional: $f_{Y|X}(y|x) = \frac{f(x,y)}{f_X(x)}$
+
+    Expected Value: $E[h(x,y)] = \int_{-\infty}^\infty \int_{-\infty}^\infty h(x,y)\dot f(x,y)dx dy$
+
+    Covariance: $Cov(x,y) = E[(X-\mu_x)(Y-\mu_y)] = E(XY) - \mu_X\mu_Y$
+
+    Correlation coefficiant: $\rho _{X,Y} = \frac{Cov(X,Y)}{\sigma_X\sigma_Y}$
+  \item[Random Samples]
+    Let $X_1,X_2\ldots X_n$ be a random sample from a dist. with mean $\mu$ and s.d. $\sigma$
+    
+    $E(\bar{X}) = \mu$, $V(\bar{X}) = \sigma_{\bar{X}}^2 = \sigma^2/n$
+    
+    If dist is normal then for any $n$,  $\bar{X}$ is norm. distributed with mean $\mu$ and s.d. $\sigma/\sqrt{n}$
+\end{description}            
+\end{multicols}
+\end{document}
